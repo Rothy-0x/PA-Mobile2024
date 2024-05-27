@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skena/pages/news_page.dart';
 import 'package:skena/pages/drop_page.dart';
-import 'package:skena/pages/homepage.dart';
 
 void main() {
   runApp(Mainpage());

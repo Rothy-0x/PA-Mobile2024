@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:skena/widgets/navbar.dart';
+import 'package:skena/pages/news_page.dart';
 import 'package:skena/pages/drop_page.dart';
-class NewsPage extends StatefulWidget {
-  const NewsPage({super.key});
+import 'package:skena/widgets/showsearch.dart';
 
+
+
+class NewsPage extends StatefulWidget {
   @override
-  _NewsPageState createState() => _NewsPageState();
+  State<NewsPage> createState() => _NewsPageState();
 }
 
 class _NewsPageState extends State<NewsPage> {
   int _currentIndex = 0;
 
- void _onNavbarItemTapped(int index) {
+void _onNavbarItemTapped(int index) {
+  
+
     setState(() {
       _currentIndex = index;
     });
@@ -30,19 +35,59 @@ class _NewsPageState extends State<NewsPage> {
       //   break;
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News'),
+        title: Text('HYPEABYSS'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(),
+              );
+            },
+          ),
+        ],
       ),
-      body: Center(
-        child: Text('News Page Content for $_currentIndex'),
+      body: const Center(
+        child: Text('News'),
       ),
-      bottomNavigationBar: CustomNavbar(
-        currentIndex: _currentIndex,
-        onItemSelected: _onNavbarItemTapped,
+        bottomNavigationBar: CustomNavbar(
+          currentIndex: _currentIndex,
+          onItemSelected: _onNavbarItemTapped,
+        ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: Text('Refine'),
+        icon: Icon(Icons.tune),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+}
+
+class DropItem extends StatelessWidget {
+  final String imageUrl;
+  final String date;
+  final String name;
+
+  DropItem({required this.imageUrl, required this.date, required this.name});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          Image.network(imageUrl, height: 100, fit: BoxFit.cover),
+          SizedBox(height: 8),
+          Text(date, style: TextStyle(fontWeight: FontWeight.bold)),
+          SizedBox(height: 4),
+          Text(name, textAlign: TextAlign.center),
+        ],
       ),
     );
   }
